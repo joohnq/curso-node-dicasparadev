@@ -7,3 +7,7 @@ class Person {
     return `Hello, ${this.name}`;
   }
 }
+
+module.exports = {
+  Person,
+};
