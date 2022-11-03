@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index.js"
+    "index": "nodemon index.js",
+    "https": "nodemon https.js"
   },
   "author": "João Henrique",
   "license": "MIT",
