@@ -8,12 +8,6 @@ connectToDatabase();
 
 const app = express();
 const port = 3333;
-const users = [
-  { name: "João Henrique", age: 16 },
-  { name: "Eliana", age: 44 },
-  { name: "George", age: 43 },
-  { name: "Cecilia", age: 5 },
-];
 
 app.use(express.json());
 
@@ -22,9 +16,23 @@ app.get("/home", (req, res) => {
   res.status(200).send("<h1> Home </h1>");
 });
 
-app.get("/users", (req, res) => {
-  res.contentType("application/json");
-  res.send(JSON.stringify(users));
+app.get("/users", async (req, res) => {
+  try {
+    const users = await UserModel.find({});
+    res.status(200).json(users);
+  } catch (error) {
+    return res.status(500).send(error.message);
+  }
+});
+
+app.get("/users/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const user = await UserModel.findById(id);
+    res.status(200).json(user);
+  } catch (error) {
+    return res.status(500).send(error.message);
+  }
 });
 
 app.post("/users", async (req, res) => {
