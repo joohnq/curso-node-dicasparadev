@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <%- include('partials/head.ejs') %>
+  <body>
+    <% users.forEach(user => { %>
+    <h2>Nome completo: <%= user.firstName %> <%= user.lastName %></h2>
+    <p><%= user.email %></p>
+    <% }) %>
+  </body>
+</html>
