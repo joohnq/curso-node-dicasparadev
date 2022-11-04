@@ -2,6 +2,7 @@ const express = require("express");
 const dotenv = require("dotenv");
 const connectToDatabase = require("./src/database/connect");
 const UserModel = require("./src/models/user.model");
+const { application } = require("express");
 
 dotenv.config();
 connectToDatabase();
@@ -41,6 +42,26 @@ app.post("/users", async (req, res) => {
     res.status(201).json(user);
   } catch (error) {
     res.status(500).send(error.message);
+  }
+});
+
+app.delete("/users/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const user = await UserModel.findByIdAndRemove(id);
+    res.status(201).json(user);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+});
+
+app.patch("/users/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const user = await UserModel.findByIdAndUpdate(id, req.body, { new: true });
+    res.status(201).json(user);
+  } catch (error) {
+    return res.status(500).send(error.message);
   }
 });
 
